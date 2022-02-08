@@ -1,10 +1,60 @@
-[![Build Status](https://travis-ci.org/Hub-of-all-Things/HAT2.0.svg?branch=master)](https://travis-ci.org/Hub-of-all-Things/HAT2.0)
-<!--[![Coverage Status](https://coveralls.io/repos/Hub-of-all-Things/HAT2.0/badge.svg?branch=master&service=github)](https://coveralls.io/github/Hub-of-all-Things/HAT2.0?branch=master)-->
-
 # [Hub of All Things](https://hubofallthings.com)
 
 This repository contains an implementation of the [Hub-of-All-Things](http://hubofallthings.com) HAT Microserver
 project.
+
+# Citizen App Local Dev Instructions
+
+This is for either Linux or macOS.
+
+## Requirements:
+* Docker 
+    * docker.com
+* Node Version Manager
+    * https://github.com/nvm-sh/nvm
+* Clone HAT2.0
+    * https://github.com/dataswift/HAT2.0
+* Clone Local DB
+    * https://github.com/dataswifty/localdockerdb
+* Clone Rumpel/Citizen App
+    * https://github.com/dataswifty/rumpel-react
+
+
+## Changes you need to make:
+* Add this entry to your host file
+127.0.0.1   bobtheplumber.example.com
+* For rumpel-react, you need to use node version 12, which you can set using NVM
+    * “> nvm use 12”
+
+Local Development
+1. Local Postgres
+    1. Open a terminal in the localdockerdb repo root
+    2. Build the image using “docker build .”
+        1. This will return a hash as the image ID, use that in the next step.
+    3. Run using “docker run --rm -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password --name pg-docker -p 5432:5432 HASH_FROM_PREVIOUS_STEP”
+2. Run the local HAT
+    1. Open a terminal in the HAT repo root
+    2. git submodule init
+    3. git submodule update
+    4. make run-dev
+    5. Visit http://bobtheplumber.example.com:9000
+        1. This will cause the JIT compilation and the evolutions to run, so allow a bit of time before the page renders
+￼
+3. You can now make a change to rumpel-react
+    1. Open a terminal and set the environment variable PDA_FE_DIR to <HAT_REPO_DIR>/
+        1. For example, I checked out the HAT repo to:
+            1. ~/g/dataswift/OSS/HAT2.0
+        2. And I set the environment variable:
+            1. export PDA_FE_DIR=~/g/dataswift/OSS/HAT2.0/hat/app/org/hatdex/hat/phata/assets
+    2. Open the file ProfileDropDown.tsx and find line 59, which consists of “Welcome {userHatName}”
+        1. Change “Welcome” to “Hello”
+    3. make yarn-install
+    4. make yarn-build
+    5. make copy-files 
+    6. Reload bobtheplumber.example.com:9000 and now it says Hello!
+￼
+
+# 
 
 ## Releases
 
