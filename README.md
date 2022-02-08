@@ -28,30 +28,31 @@ This is for either Linux or macOS.
 
 Local Development
 1. Local Postgres
-    1. Open a terminal in the localdockerdb repo root
-    2. Build the image using “docker build .”
-        1. This will return a hash as the image ID, use that in the next step.
-    3. Run using “docker run --rm -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password --name pg-docker -p 5432:5432 HASH_FROM_PREVIOUS_STEP”
+    * Open a terminal in the localdockerdb repo root
+    * Build the image using “docker build .”
+        * This will return a hash as the image ID, use that in the next step.
+    * Run using “docker run --rm -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=password --name pg-docker -p 5432:5432 HASH_FROM_PREVIOUS_STEP”
 2. Run the local HAT
-    1. Open a terminal in the HAT repo root
-    2. git submodule init
-    3. git submodule update
-    4. make run-dev
-    5. Visit http://bobtheplumber.example.com:9000
-        1. This will cause the JIT compilation and the evolutions to run, so allow a bit of time before the page renders
+    * Open a terminal in the HAT repo root
+    * git submodule init
+    * git submodule update
+    * cp sample.awsconfig ~/.aws/config _*Warning!*_  you may have an AWS config file already, this will overwrite it.
+    * make run-dev
+    * Visit http://bobtheplumber.example.com:9000
+        * This will cause the JIT compilation and the evolutions to run, so allow a bit of time before the page renders
 ￼
 3. You can now make a change to rumpel-react
-    1. Open a terminal and set the environment variable PDA_FE_DIR to <HAT_REPO_DIR>/
-        1. For example, I checked out the HAT repo to:
-            1. ~/g/dataswift/OSS/HAT2.0
-        2. And I set the environment variable:
-            1. export PDA_FE_DIR=~/g/dataswift/OSS/HAT2.0/hat/app/org/hatdex/hat/phata/assets
-    2. Open the file ProfileDropDown.tsx and find line 59, which consists of “Welcome {userHatName}”
-        1. Change “Welcome” to “Hello”
-    3. make yarn-install
-    4. make yarn-build
-    5. make copy-files 
-    6. Reload bobtheplumber.example.com:9000 and now it says Hello!
+    * Open a terminal and set the environment variable PDA_FE_DIR to <HAT_REPO_DIR>/
+        * For example, I checked out the HAT repo to:
+            * ~/g/dataswift/OSS/HAT2.0
+        * And I set the environment variable:
+            * export PDA_FE_DIR=~/g/dataswift/OSS/HAT2.0/hat/app/org/hatdex/hat/phata/assets
+    * Open the file ProfileDropDown.tsx and find line 59, which consists of “Welcome {userHatName}”
+        * Change “Welcome” to “Hello”
+    * make yarn-install
+    * make yarn-build
+    * make copy-files 
+    * Reload bobtheplumber.example.com:9000 and now it says Hello!
 ￼
 
 # 
